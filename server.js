@@ -66,7 +66,7 @@ function sendNexmoSMSMessage() {
       var post = JSON.parse(body);
 
       // Send text response to user via Nexmo SMS
-      sendSMS(post.phoneNumber, post.message);
+      sendSMS(post.phoneNumber, post.message, post.quickreply);
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end('{}');
@@ -76,11 +76,11 @@ function sendNexmoSMSMessage() {
 
 
 // Send a WhatsApp
-function sendSMS(phoneNumber, message) {
+function sendSMS(phoneNumber, message, quickreply) {
 	
 const from_number = config.nexmoNumber;
 const to_number = phoneNumber;
-const data = JSON.stringify({
+var data = JSON.stringify({
   "from": { "type": "whatsapp", "number": from_number },
   "to": { "type": "whatsapp", "number": to_number },
   "message": {
@@ -90,6 +90,19 @@ const data = JSON.stringify({
     }
   }
 });
+
+if(quickreply!==undefined && quickreply!="") {
+	data = JSON.stringify({
+	  "from": { "type": "whatsapp", "number": from_number },
+	  "to": { "type": "whatsapp", "number": to_number },
+	  "message": {
+	    "content": {
+	      "type": "text",
+	      "text":  message
+	    }
+	  }
+});
+}
 	const https = require('https');
 const user = config.nexmoApiKey;
 const password = config.nexmoApiSecret;
