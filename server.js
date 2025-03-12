@@ -197,7 +197,7 @@ function teneoChat(sessionHandler) {
       const teneoSessionId = sessionHandler.getSession(callingPhoneNumber);
 
       // Send the user's input from the SMS to Teneo, and obtain a response
-      const teneoResponse = await teneoApi.sendInput(teneoSessionId, { 'text': input, 'channel': 'vonage-whatsapp', 'phoneNumber': callingPhoneNumber, 'mediaUrl':mediaUrl});
+      const teneoResponse = await teneoApi.sendInput(teneoSessionId, { 'text': input, 'channel': 'vonage-whatsapp', 'phone': callingPhoneNumber, 'mediaUrl':mediaUrl});
       console.log("response="+teneoResponse.output.text);
       console.log(_stringify(teneoResponse));
       // Stored engine sessionid for this caller
