@@ -111,7 +111,7 @@ const options = {
 
 	var req2 = https.request(options, (res2) => {
 	  console.log('statusCode:', res2.statusCode);
-	  console.log('headers:', res2.headers);
+	  //console.log('headers:', res2.headers);
 	
 	  res2.on('data', (d) => {
 	    process.stdout.write(d);
@@ -175,14 +175,14 @@ function teneoChat(sessionHandler) {
 
     req.on('end', async function () {
      //console.log(_stringify(req));
-     console.log(_stringify(body));
+     //console.log(_stringify(body));
       var post = qs.parse(body);
      const obj = JSON.parse(body);
       const callingPhoneNumber = obj.from;
       var input = obj.text;
       var mediaUrl = '';
        
-       console.log("post = " + _stringify(post));
+       //console.log("post = " + _stringify(post));
        console.log("input = " + input);
       if(input===undefined) {
 	      mediaUrl = obj.image;
@@ -199,7 +199,7 @@ function teneoChat(sessionHandler) {
       // Send the user's input from the SMS to Teneo, and obtain a response
       const teneoResponse = await teneoApi.sendInput(teneoSessionId, { 'text': input, 'channel': 'vonage-whatsapp', 'phone': callingPhoneNumber, 'mediaUrl':mediaUrl});
       console.log("response="+teneoResponse.output.text);
-      console.log(_stringify(teneoResponse));
+      //console.log(_stringify(teneoResponse));
       // Stored engine sessionid for this caller
       sessionHandler.setSession(callingPhoneNumber, teneoResponse.sessionId);
 
